@@ -1,20 +1,8 @@
 package icantafford.newmorph;
 
-import net.fabricmc.api.ModInitializer;
-import net.minecraft.component.DataComponentTypes;
-// Minecraft imports
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-// The line `import net.minecraft.util.Identifier;` is importing the `Identifier` class from the
-// Minecraft API. The `Identifier` class is used to uniquely identify resources within Minecraft, such
-// as items, blocks, sounds, etc. It is commonly used to create unique identifiers for registering and
-// referencing game content in mods.
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Unit;
+import icantafford.newmorph.TutorialItems;
 
-import java.util.function.Function;
+import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
 
@@ -30,15 +18,6 @@ public class NewMorph implements ModInitializer {
 	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	public static final Item CUSTOM_ITEM = register("custom_item", CustomItem::new, new Item.Settings()
-		.component(DataComponentTypes.UNBREAKABLE, Unit.INSTANCE)
-		.maxCount(16));
-
-	public static Item register(String path, Function<Item.Settings, Item> factory, Item.Settings settings){
-			final RegistryKey<Item> registryKey = RegistryKey.of(RegistryKeys.ITEM, Identifier.of("tutorial", path));
-			return Items.register(registryKey, factory,settings);
-	}
-
 	/** 
 	Commented out just in case it complains -B
 	public static void initialize(){
@@ -51,6 +30,7 @@ public class NewMorph implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
+		TutorialItems.registerFuels();
 
 		LOGGER.info("Hello Fabric world!");
 	}
